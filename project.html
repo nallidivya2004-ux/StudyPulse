@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FocusFlow - Study Timer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(0,0,0,0.2);
+  padding: 25px;
+  border-radius: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.start { background: #00ffb3; }
+.reset { background: #ff7675; color: white; }
+
+select {
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.quote {
+  margin-top: 20px;
+  font-style: italic;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>📚 FocusFlow</h1>
+  <h2 id="timer">25:00</h2>
+
+  <button class="start" onclick="startTimer()">Start Session</button>
+  <button class="reset" onclick="resetTimer()">Reset</button>
+
+  <h3>How do you feel after studying?</h3>
+  <select id="mood">
+    <option>Happy 😊</option>
+    <option>Neutral 😐</option>
+    <option>Tired 😴</option>
+    <option>Stressed 😟</option>
+  </select>
+
+  <p id="log"></p>
+
+  <div class="quote" id="quote"></div>
+</div>
+
+<script>
+let time = 1500;
+let timer;
+
+const quotes = [
+  "Small progress is still progress.",
+  "Stay focused and never give up.",
+  "Dream big. Start small.",
+  "Discipline creates success."
+];
+
+document.getElementById("quote").innerText =
+quotes[Math.floor(Math.random() * quotes.length)];
+
+function startTimer() {
+  timer = setInterval(() => {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    document.getElementById("timer").innerText =
+      `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      saveMood();
+      alert("Session Completed!");
+    }
+    time--;
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timer);
+  time = 1500;
+  document.getElementById("timer").innerText = "25:00";
+}
+
+function sav
